@@ -1,13 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createHashRouter,
+  RouterProvider,
+} from "react-router-dom";
 import "./index.css";
 import RootErrorElement from "./error-page";
 import RootRoute, { loader as rootLoader } from "./routes/root";
 import IndexRoute from "./routes/index";
 import TestRoute, { loader as testLoader } from "./routes/test/index";
 
-const router = createBrowserRouter(
+const router = createHashRouter(
   [
     {
       path: "/",
@@ -35,10 +39,10 @@ const router = createBrowserRouter(
         },
       ],
     },
-  ],
-  {
-    basename: "/study-for-certification",
-  }
+  ]
+  // {
+  //   basename: "/study-for-certification",
+  // }
 );
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
