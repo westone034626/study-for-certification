@@ -7,34 +7,39 @@ import RootRoute, { loader as rootLoader } from "./routes/root";
 import IndexRoute from "./routes/index";
 import TestRoute, { loader as testLoader } from "./routes/test/index";
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <RootRoute />,
+      loader: rootLoader,
+      id: "root",
+      errorElement: <RootErrorElement />,
+      children: [
+        {
+          index: true,
+          element: <IndexRoute />,
+        },
+        {
+          path: "tests/:testId",
+          loader: testLoader,
+          element: <TestRoute />,
+        },
+        {
+          path: "tests/:testId/questions",
+          element: <></>,
+        },
+        {
+          path: "tests/:testId/results",
+          element: <></>,
+        },
+      ],
+    },
+  ],
   {
-    path: "/",
-    element: <RootRoute />,
-    loader: rootLoader,
-    id: "root",
-    errorElement: <RootErrorElement />,
-    children: [
-      {
-        index: true,
-        element: <IndexRoute />,
-      },
-      {
-        path: "tests/:testId",
-        loader: testLoader,
-        element: <TestRoute />,
-      },
-      {
-        path: "tests/:testId/questions",
-        element: <></>,
-      },
-      {
-        path: "tests/:testId/results",
-        element: <></>,
-      },
-    ],
-  },
-]);
+    basename: "/study-for-certification",
+  }
+);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
