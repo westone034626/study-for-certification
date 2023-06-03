@@ -84,7 +84,8 @@ const router = createBrowserRouter(
         />
       </Route>
     </Route>
-  )
+  ),
+  { basename: "/study-for-certification" }
 )
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
