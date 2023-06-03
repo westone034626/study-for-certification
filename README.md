@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+### Context: tapping history of React Router v 6.11
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+##### Last recap
+1. loader(Page loading, Link, NavLink, Form - get(when role is search), submit - input onChange, push & replace optional)
+2. action(Form - post, delete, fetcher.Form)
+3. catch error(about route, about child, about children - by using pathless, set custom error msg by using throw new Error)
+4. layout(children, index, Outlet)
+5. param(/contacts/:contactId)
 
-## Available Scripts
+6. loader - request(url), params
+7. action - request(formData), params
 
-In the project directory, you can run:
+8. navigating state - useNavigation, submit
+9. goBack - useNavigate
+10. Optimistic UI - fetcher.formData
+11. redirect - redirecting page
 
-### `npm start`
+12. input is required name property in Form
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+13. folder structure
+   /src/routes
+   /index.js
+   /error-page.js - handle at errorElement passed at route, and useRouteError is used at ErrorPage for console.error 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+##### Questions
+1. What is difference between action and method of Form
+   1. action is 'path', like this(/destory)
+   2. method is HTTP method like these(get or post)
 
-### `npm test`
+##### Recap not important things but hope to remind
+1. Way to write response instance when error occured => throw new Response("", { status: 404, statusText: "Not found" })
+2. elements passed in route are rendered after completing of loader or action. 
+3. defaultValue - useful property of input tag's
+4. submit is used when call GET request with formData, fetcher is used when make post quest but without navigation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+##### Additional study
+1. Form props - replace, reloadDocument
+2. Navigate - use when require force redirecting(ex: when unauthorized user visits private page)
+3. useActionData - can get action result of previous navigation(form validation checking is common usecase)
+4. useSubmit - can pass action or method, not just formData
+5. useSearchParams - can access query string and can mutate current query string(like navigate)
+6. useLocation, useParams - can access to location, params
+7. FormData - for handling entire data about form, use Object.fromEntries
+8. [isRouteErrorResponse](https://reactrouter.com/en/main/utils/is-route-error-response)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+##### Escape hatch
+1. ScrollRestoration
+   1. it is recommended that rendering at root route component
+   2. getKey: browser detects changing bewteen locations by location.key. even though locations have same location.path, they are handled as other. so, may don't restore scroll position. if you want to scroll restoration in this situation, you can change the default key value location.key to location.path.(or conditionally key or path);
+   3. preventScrollReset: if location.key change, scroll restoration will occur. But if you pass true at preventScrollReset on Link(or Form), scroll reset will not occur.
+   4. js bundle download, data fetch, full page rendering cause scroll flash when scroll restoration. so if you don't want to this, use ssr framework like remix.
+2. useRouteLoaderData
+   1. Make available data using at components in current rendered route;
+3. useFetcher
+   1. fetcher.submit: submit is initiated by developer
+4. lazy
+   1. can lazy import per route for split bundling(this case, you should write loader(or action) in file indicating import path)
+   2. about lazy on a route, can seperate lazy and loader(or action)
+5. defer & Await & useAsyncValue & React.Suspense
+   1. if function need long time related with loader, component passed in route element will need many time. In this situation if you want to render first component with fallback component(data will fetch in parallel and if fetching completed, adapt later), you can consider this option. 
