@@ -1,3 +1,8 @@
+### Bug fix
+
+1. safari background color always 'black' issue: update meta tag
+2. 404 page error on refresh: browser router issue and replace hash router(hash router dont need setting about basename - github page)
+
 ### Context: tapping history of React Router v 6.11
 
 ##### Last recap
