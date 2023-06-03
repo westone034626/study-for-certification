@@ -1,10 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./index.css";
 import RootErrorElement from "./error-page";
 import RootRoute, { loader as rootLoader } from "./routes/root";
 import IndexRoute from "./routes/index";
-import TestRoute from "./routes/test/index";
+import TestRoute, { loader as testLoader } from "./routes/test/index";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
       },
       {
         path: "tests/:testId",
+        loader: testLoader,
         element: <TestRoute />,
       },
       {
