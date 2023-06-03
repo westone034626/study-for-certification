@@ -1,4 +1,5 @@
 import { useLoaderData } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import * as tests from "../../data/tests";
 import Footer from "../../components/Footer";
 
@@ -20,7 +21,10 @@ export default function TestRoute() {
   const test = useLoaderData();
 
   return (
-    <div style={{ flex: 1 }}>
+    <div style={{ flex: 1, backgroundColor: "#000000" }}>
+      <Helmet>
+        <meta name="theme-color" content="#000000" />
+      </Helmet>
       <h1>{test?.title}</h1>
 
       <p>
