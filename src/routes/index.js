@@ -1,19 +1,20 @@
-import { Link, useRouteLoaderData } from "react-router-dom";
+import React from 'react';
+import { Link, useRouteLoaderData } from 'react-router-dom';
 
 export default function Index() {
-  const tests = useRouteLoaderData("root");
+    const tests = useRouteLoaderData('root');
 
-  return (
-    <div>
-      <h1>산업위생관리기사</h1>
+    return (
+        <React.Fragment>
+            <h1>산업위생관리기사</h1>
 
-      <ul>
-        {tests.map((test) => (
-          <li key={test.id}>
-            <Link to={`/tests/${test.id}`}>{test.title}</Link>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+            <ul>
+                {tests.map((test) => (
+                    <li key={test.id}>
+                        <Link to={`/tests/${test.id}`}>{test.title}</Link>
+                    </li>
+                ))}
+            </ul>
+        </React.Fragment>
+    );
 }

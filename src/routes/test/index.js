@@ -1,6 +1,7 @@
+import React from 'react';
 import { useLoaderData } from 'react-router-dom';
 import * as tests from '../../data/tests';
-import Footer from '../../components/Footer';
+import { Footer } from '../../components';
 
 export async function loader({ params }) {
     const testId = params.testId;
@@ -20,10 +21,10 @@ export default function TestRoute() {
     const test = useLoaderData();
 
     return (
-        <div style={{ flex: 1 }}>
+        <React.Fragment>
             <h1>{test?.title}</h1>
 
             <Footer title={'시험 응시'}/>
-        </div>
+        </React.Fragment>
     );
 }
