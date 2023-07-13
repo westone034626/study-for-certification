@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link, useRouteLoaderData } from 'react-router-dom';
+import { useRouteLoaderData } from 'react-router-dom';
+import { TestItem } from '../components';
 
 export default function Index() {
     const tests = useRouteLoaderData('root');
@@ -9,10 +10,12 @@ export default function Index() {
             <h1>산업위생관리기사</h1>
 
             <ul>
-                {tests.map((test) => (
-                    <li key={test.id}>
-                        <Link to={`/tests/${test.id}`}>{test.title}</Link>
-                    </li>
+                {tests.map((test, index) => (
+                    <React.Fragment>
+                        {!!index && <div style={{ paddingTop: 24 }}></div>}
+
+                        <TestItem key={test.id} test={test}/>
+                    </React.Fragment>
                 ))}
             </ul>
         </React.Fragment>
